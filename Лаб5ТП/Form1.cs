@@ -8,6 +8,7 @@ namespace Лаб5ТП
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
+        GreenCircle greenCircle;
         public Form1()
         {
             InitializeComponent();
@@ -22,10 +23,15 @@ namespace Лаб5ТП
                 marker = null;
             };
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
+            greenCircle = new GreenCircle(pbMain.Width / 4, pbMain.Height / 2, 0);
+            player.OnGreenCircleOverlap += (gr) =>
+            {
+                greenCircle.X = new Random().Next(20, pbMain.Width - 20);
+                greenCircle.Y = new Random().Next(20, pbMain.Height - 20);
+            };
             objects.Add(marker);
+            objects.Add(greenCircle);
             objects.Add(player);
-            objects.Add(new MyRectangle(50, 50, 0));
-            objects.Add(new MyRectangle(100, 100, 45));
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
