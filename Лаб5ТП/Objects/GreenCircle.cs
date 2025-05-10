@@ -10,15 +10,15 @@ namespace Лаб5ТП.Objects
     internal class GreenCircle : BaseObject
     {
         public float diametr;
-        public Action<float> DecreaseToZero;
+        public Action DecreaseToZero;
         public GreenCircle(float x, float y, float angle) : base(x, y, angle) {
-            diametr = 30;
+            diametr = 50;
         }
         public override void Render(Graphics g)
         {
             if (diametr == 0)
             {
-                DecreaseToZero(diametr);
+                DecreaseToZero();
             }
             g.FillEllipse(new SolidBrush(Color.LightGreen), -diametr/2, -diametr / 2, diametr, diametr);
         }
