@@ -8,7 +8,8 @@ namespace Лаб5ТП
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
-        //GreenCircle greenCircle;
+        GreenCircle greenCircle1;
+        GreenCircle greenCircle2;
         public Form1()
         {
             InitializeComponent();
@@ -24,18 +25,31 @@ namespace Лаб5ТП
                 marker = null;
             };
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
-            //greenCircle = new GreenCircle(pbMain.Width / 4, pbMain.Height / 2, 0);
+            greenCircle1 = new GreenCircle(new Random().Next(20, pbMain.Width - 20), new Random().Next(20, pbMain.Height - 20), 0);
+            greenCircle2 = new GreenCircle(new Random().Next(20, pbMain.Width - 20), new Random().Next(20, pbMain.Height - 20), 0);
             player.OnGreenCircleOverlap += (gr) =>
             {
                 gr.X = new Random().Next(20, pbMain.Width - 20);
                 gr.Y = new Random().Next(20, pbMain.Height - 20);
+                gr.diametr = 50;
                 countPoints++;
                 txtPoints.Text = $"Очки: {countPoints}";
             };
+            greenCircle1.DecreaseToZero += (d) =>
+            {
+                greenCircle1.diametr = 50;
+                greenCircle1.X = new Random().Next(20, pbMain.Width - 20);
+                greenCircle1.Y = new Random().Next(20, pbMain.Height - 20);
+            };
+            greenCircle2.DecreaseToZero += (d) =>
+            {
+                greenCircle2.diametr = 50;
+                greenCircle2.X = new Random().Next(20, pbMain.Width - 20);
+                greenCircle2.Y = new Random().Next(20, pbMain.Height - 20);
+            };
             objects.Add(marker);
-            //objects.Add(greenCircle);
-            objects.Add(new GreenCircle(new Random().Next(20, pbMain.Width - 20), new Random().Next(20, pbMain.Height - 20), 0));
-            objects.Add(new GreenCircle(new Random().Next(20, pbMain.Width - 20), new Random().Next(20, pbMain.Height - 20), 0));
+            objects.Add(greenCircle1);
+            objects.Add(greenCircle2);
             objects.Add(player);
         }
 
@@ -44,6 +58,8 @@ namespace Лаб5ТП
             var g = e.Graphics;
             g.Clear(Color.White);
             updatePlayer();
+            updateGreenCircle(greenCircle1);
+            updateGreenCircle(greenCircle2);
             foreach (var obj in objects.ToList())
             {
                 if (obj != player && player.Overlaps(obj, g))
@@ -75,6 +91,13 @@ namespace Лаб5ТП
             player.vY += -player.vY * 0.1f;
             player.X += player.vX;
             player.Y += player.vY;
+        }
+        private void updateGreenCircle(GreenCircle greenCircle)
+        {
+            if (greenCircle.diametr != 0)
+            {
+                greenCircle.diametr -= (float) 0.25;
+            }
         }
         private void timer1_Tick(object sender, EventArgs e)
         {

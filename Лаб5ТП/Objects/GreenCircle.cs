@@ -9,17 +9,24 @@ namespace Лаб5ТП.Objects
 {
     internal class GreenCircle : BaseObject
     {
-        public GreenCircle(float x, float y, float angle) : base(x, y, angle) { }
+        public float diametr;
+        public Action<float> DecreaseToZero;
+        public GreenCircle(float x, float y, float angle) : base(x, y, angle) {
+            diametr = 30;
+        }
         public override void Render(Graphics g)
         {
-            g.FillEllipse(new SolidBrush(Color.LightGreen), -15, -15, 30, 30);
+            if (diametr == 0)
+            {
+                DecreaseToZero(diametr);
+            }
+            g.FillEllipse(new SolidBrush(Color.LightGreen), -diametr/2, -diametr / 2, diametr, diametr);
         }
         public override GraphicsPath GetGraphicsPath()
         {
             var path = base.GetGraphicsPath();
-            path.AddEllipse(-15, -15, 30, 30);
+            path.AddEllipse(-diametr / 2, -diametr / 2, diametr, diametr);
             return path;
         }
-        
     }
 }
