@@ -32,6 +32,7 @@
             pbMain = new PictureBox();
             timer1 = new System.Windows.Forms.Timer(components);
             txtLog = new RichTextBox();
+            txtPoints = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pbMain).BeginInit();
             SuspendLayout();
             // 
@@ -59,17 +60,28 @@
             txtLog.TabIndex = 1;
             txtLog.Text = "";
             // 
+            // txtPoints
+            // 
+            txtPoints.Location = new Point(481, 29);
+            txtPoints.Name = "txtPoints";
+            txtPoints.ReadOnly = true;
+            txtPoints.Size = new Size(83, 27);
+            txtPoints.TabIndex = 2;
+            txtPoints.Text = "Очки: 0";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtPoints);
             Controls.Add(txtLog);
             Controls.Add(pbMain);
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pbMain).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -77,5 +89,6 @@
         private PictureBox pbMain;
         private System.Windows.Forms.Timer timer1;
         private RichTextBox txtLog;
+        private TextBox txtPoints;
     }
 }

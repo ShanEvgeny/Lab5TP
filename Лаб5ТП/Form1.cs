@@ -8,10 +8,11 @@ namespace Лаб5ТП
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
-        GreenCircle greenCircle;
+        //GreenCircle greenCircle;
         public Form1()
         {
             InitializeComponent();
+            int countPoints = 0;
             player = new Player(pbMain.Width / 2, pbMain.Height / 2, 0);
             player.OnOverlap += (p, obj) =>
             {
@@ -23,14 +24,18 @@ namespace Лаб5ТП
                 marker = null;
             };
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
-            greenCircle = new GreenCircle(pbMain.Width / 4, pbMain.Height / 2, 0);
+            //greenCircle = new GreenCircle(pbMain.Width / 4, pbMain.Height / 2, 0);
             player.OnGreenCircleOverlap += (gr) =>
             {
-                greenCircle.X = new Random().Next(20, pbMain.Width - 20);
-                greenCircle.Y = new Random().Next(20, pbMain.Height - 20);
+                gr.X = new Random().Next(20, pbMain.Width - 20);
+                gr.Y = new Random().Next(20, pbMain.Height - 20);
+                countPoints++;
+                txtPoints.Text = $"Очки: {countPoints}";
             };
             objects.Add(marker);
-            objects.Add(greenCircle);
+            //objects.Add(greenCircle);
+            objects.Add(new GreenCircle(new Random().Next(20, pbMain.Width - 20), new Random().Next(20, pbMain.Height - 20), 0));
+            objects.Add(new GreenCircle(new Random().Next(20, pbMain.Width - 20), new Random().Next(20, pbMain.Height - 20), 0));
             objects.Add(player);
         }
 
